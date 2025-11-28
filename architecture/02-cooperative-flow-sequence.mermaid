@@ -1,0 +1,33 @@
+sequenceDiagram
+    autonumber
+    participant Coop as Cooperative Signers<br/>(multisig wallet)
+    participant M as Member Wallet
+    participant T as Treasury Contract
+    participant S as Savings Cycle Contract
+    participant G as Governance Contract
+    participant C as Cardano Ledger
+
+    M->>T: Submit contribution tx<br/>(ADA or stablecoin)
+    T-->>C: Validate inputs + lock funds
+    C-->>T: UTXO confirmed
+    T->>S: Emit contribution event reference
+    S-->>S: Update rotation state<br/>+ deadline tracking
+
+    alt Late contribution detected
+        S->>T: Request late-fee debit via utility validator
+        T-->>C: Apply fee + record metadata
+    end
+
+    opt Rotation slot complete
+        S->>T: Generate payout instruction
+        T->>C: Release funds to current recipient
+        C-->>M: Settlement received
+    end
+
+    opt Parameter change needed
+        Coop->>G: Submit proposal metadata
+        G->>G: Weighted vote + threshold validation
+        G->>T: Update treasury policy refs
+        G->>S: Update rotation / fee logic
+    end
+

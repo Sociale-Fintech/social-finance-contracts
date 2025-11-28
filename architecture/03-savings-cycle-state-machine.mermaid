@@ -1,0 +1,21 @@
+stateDiagram-v2
+    [*] --> Draft : Contract scaffolded
+    Draft --> Configured : Governance approval<br/>+ parameters set
+    Configured --> ActiveContributions : First contribution window opens
+    ActiveContributions --> GracePeriod : Deadline reached
+    GracePeriod --> ActiveContributions : Late member submitted
+    GracePeriod --> ReadyForPayout : All dues settled
+    ActiveContributions --> ReadyForPayout : All members paid in early
+
+    ReadyForPayout --> PayoutInProgress : Treasury executes payout instruction
+    PayoutInProgress --> ActiveContributions : Next rotation begins
+    PayoutInProgress --> CycleComplete : Final recipient paid
+
+    CycleComplete --> Archived : Metadata snapshot + audit hash stored
+    Archived --> [*]
+
+    %% Exceptional paths
+    Configured --> Paused : Emergency halt (governance)
+    ActiveContributions --> Paused : Risk mitigation
+    Paused --> Configured : Governance resume signal
+
