@@ -1,65 +1,68 @@
-# social-finance-contracts
+# Sociale Finance Smart Contracts
 
-Write validators in the `validators` folder, and supporting functions in the `lib` folder using `.ak` as a file extension.
+Smart contract validators for social finance entities on Cardano.
 
-```aiken
-validator my_first_validator {
-  spend(_datum: Option<Data>, _redeemer: Data, _output_reference: Data, _context: Data) {
-    True
-  }
-}
-```
+---
 
-## Building
+## Overview
 
-```sh
-aiken build
-```
+This repository contains on-chain validators that power savings groups (ROSCAs, VSLAs, SACCOs). Built with [Aiken](https://aiken-lang.org) for Cardano blockchain.
 
-## Configuring
-
-**aiken.toml**
-```toml
-[config.default]
-network_id = 41
-```
-
-Or, alternatively, write conditional environment modules under `env`.
-
-## Testing
-
-You can write tests in any module using the `test` keyword. For example:
-
-```aiken
-use config
-
-test foo() {
-  config.network_id + 1 == 42
-}
-```
-
-To run all tests, simply do:
-
-```sh
-aiken check
-```
-
-To run only tests matching the string `foo`, do:
-
-```sh
-aiken check -m foo
-```
+---
 
 ## Documentation
 
-If you're writing a library, you might want to generate an HTML documentation for it.
+📖 See [architecture/DOCS.md](./architecture/DOCS.md) for complete documentation.
 
-Use:
+---
 
-```sh
-aiken docs
+## Development
+
+### Prerequisites
+- [Aiken](https://aiken-lang.org) - Latest version
+- Cardano node access or [Blockfrost](https://blockfrost.io) API key
+
+### Build
+```bash
+aiken build
 ```
 
-## Resources
+### Test
+```bash
+aiken check
+```
 
-Find more on the [Aiken's user manual](https://aiken-lang.org).
+### Format
+```bash
+aiken fmt
+```
+
+---
+
+## Repository Structure
+
+```
+social-finance-contracts/
+├── validators/        # Smart contract validators
+├── lib/              # Shared libraries and utilities
+├── tests/            # Test suites
+└── architecture/     # Documentation and design
+```
+
+---
+
+## License
+
+[Apache 2.0](./LICENSE) - Open source with patent and trademark protection.
+
+---
+
+## Contributing
+
+Contributions welcome! Please open an issue or PR.
+
+---
+
+## Contact
+
+For questions or support, reach out to the Sociale Finance team.
